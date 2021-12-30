@@ -4,6 +4,7 @@ from jinja2 import Template
 from dotenv import dotenv_values
 from email.mime.text import MIMEText
 import smtplib  # Docks https://docs.python.org/3/library/smtplib.html
+from smtplib import SMTPException
 
 from schemas import SupportClient
 from settings import settings
@@ -23,8 +24,8 @@ def post_email(client: SupportClient):
     try:
         send_email(template)
         return client
-    except Exception as _ex:
-        raise HTTPException(status_code=500, detail=f"{_ex}")
+    except SMTPException as e:
+        raise HTTPException(status_code=500, detail=f"{e}")
 
 
 def send_email(text_html):
