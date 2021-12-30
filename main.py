@@ -29,7 +29,7 @@ def post_email(client: SupportClient):
 
 def send_email(text_html):
 
-    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server = smtplib.SMTP(settings.SMTP_SERVER, settings.PORT_SMTP)
     server.starttls()
 
     # Delivery email
