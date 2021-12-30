@@ -1,11 +1,12 @@
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from jinja2 import Template
 from dotenv import dotenv_values
 from email.mime.text import MIMEText
-import smtplib
+import smtplib  # Docks https://docs.python.org/3/library/smtplib.html
 
 from schemas import SupportClient
-
+from settings import settings
 
 app = FastAPI()
 
@@ -22,8 +23,8 @@ def post_email(client: SupportClient):
     try:
         send_email(template)
         return client
-    except HTTPException(status_code=535) as _ex:
-        pass
+    except Exception as _ex:
+        raise HTTPException(status_code=500, detail=f"{_ex}")
 
 
 def send_email(text_html):
@@ -44,3 +45,12 @@ def send_email(text_html):
     message["To"] = sender
     server.sendmail(sender, recipient, message.as_string())
 
+
+if __name__ == '__main__':
+    # DO NOT USE IN PRODUCTION!
+    uvicorn.run('main:app',
+                host=str(settings.HOST),
+                port=settings.PORT,
+                # workers=workers,
+                debug=settings.DEBUG,
+                reload=True)
