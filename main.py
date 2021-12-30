@@ -1,7 +1,6 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from jinja2 import Template
-from dotenv import dotenv_values
 from email.mime.text import MIMEText
 import smtplib  # Docks https://docs.python.org/3/library/smtplib.html
 from smtplib import SMTPException
@@ -11,7 +10,6 @@ from settings import settings
 
 app = FastAPI()
 
-config_file = dotenv_values(".env")
 with open('index.html', 'r') as file:
     html = file.read()
 
