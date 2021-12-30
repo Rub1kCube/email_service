@@ -7,6 +7,7 @@ from smtplib import SMTPException
 
 from schemas import SupportClient
 from settings import settings
+from gunicorn_conf import workers
 
 app = FastAPI()
 
@@ -45,6 +46,6 @@ if __name__ == '__main__':
     uvicorn.run('main:app',
                 host=str(settings.HOST),
                 port=settings.PORT,
-                # workers=workers,
+                workers=workers,
                 debug=settings.DEBUG,
                 reload=True)
