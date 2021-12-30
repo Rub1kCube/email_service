@@ -29,21 +29,16 @@ def post_email(client: SupportClient):
 
 def send_email(text_html):
 
-    # Data for email
-    sender = config_file["EMAIL_SENDER"]
-    password = config_file["PASS"]
-    recipient = config_file["EMAIL_RECIPIENT"]
-
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
 
     # Delivery email
-    server.login(sender, password)
+    server.login(settings.EMAIL_SENDER, settings.PASS)
     message = MIMEText(text_html, 'html')
     message["Subject"] = "Новая заявка"
     message["From"] = "От сайта ИТС"
-    message["To"] = sender
-    server.sendmail(sender, recipient, message.as_string())
+    message["To"] = settings.EMAIL_SENDER
+    server.sendmail(settings.EMAIL_SENDER, settings.EMAIL_RECIPIENT, message.as_string())
 
 
 if __name__ == '__main__':
