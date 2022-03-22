@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI, HTTPException
 from jinja2 import Template
 from email.mime.text import MIMEText
-import smtplib  # Docks https://docs.python.org/3/library/smtplib.html
+import smtplib  # Docs https://docs.python.org/3/library/smtplib.html
 from smtplib import SMTPException
 
 from schemas import SupportClient
