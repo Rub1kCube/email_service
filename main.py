@@ -36,7 +36,7 @@ def send_email(text_html):
     server.login(settings.EMAIL_SENDER, settings.PASS)
     message = MIMEText(text_html, 'html')
     message["Subject"] = "Новая заявка"
-    message["From"] = "От сайта ИТС"
+    message["From"] = "От сайта"
     message["To"] = settings.EMAIL_SENDER
     server.sendmail(settings.EMAIL_SENDER, settings.EMAIL_RECIPIENT, message.as_string())
 
